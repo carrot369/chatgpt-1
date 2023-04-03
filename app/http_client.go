@@ -2,12 +2,20 @@ package app
 
 import (
 	"github.com/imroc/req/v3"
+	"os"
 	"time"
 )
 
 var ChatGptBaseUrl = "https://api.openai.com/"
 
-var BaseClient = req.C().SetBaseURL(ChatGptBaseUrl).SetTimeout(10 * time.Second).SetProxyURL("http://127.0.0.1:7890")
+var BaseClient = req.C().SetBaseURL(ChatGptBaseUrl).SetTimeout(10 * time.Second)
+
+func GetClient() *req.Client {
+	if os.Getenv("DEV") == "true" {
+		return BaseClient.SetProxyURL("http://127.0.0.1:7890").DevMode()
+	}
+	return BaseClient
+}
 
 type BalanceResp struct {
 	Object         string  `json:"object"`

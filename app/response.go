@@ -20,5 +20,5 @@ func Success(c *fiber.Ctx, data interface{}) error {
 
 // Error 失败返回
 func Error(c *fiber.Ctx, msg string) error {
-	return Response(c, fiber.StatusInternalServerError, nil, msg)
+	return Response(c, fiber.StatusOK, nil, msg)
 }

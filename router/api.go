@@ -8,10 +8,7 @@ import (
 func Api(app *fiber.App) {
 
 	api := app.Group("/api")
-	v1 := api.Group("/v1")
-
-	// chatgpt
-	chatgpt := v1.Group("/chatgpt")
-	chatgpt.Get("/get_balance", controller.GetBalance())
-
+	api.Get("/get-balance", controller.GetBalance())             // 查询余额
+	api.Post("/chat-process", controller.CreateChatCompletion()) // 发送聊天
+	api.Post("/session", controller.CreateSession())             // 创建会话
 }
